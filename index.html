@@ -1,14 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- custom font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap"
+      rel="stylesheet"
+    />
+    <!-- end of custom font -->
+
+    <link rel="stylesheet" href="CSS/styles.css" />
     <script defer src="JS/script.js"></script>
     <title>Avoid the Veggies!!</title>
-</head>
-<body>
-    <h1>Avoid the Veggies</h1>
-</body>
+  </head>
+  <body>
+    <main>
+      <h1>Avoid the Veggies</h1>
+      <div id="rules">
+        <p>
+          The game for those who <strong>DO NOT</strong> like veggies on their
+          pizza
+        </p>
+        <ul>
+          <li>
+            <em>Click anywhere on the grid to begin</em>
+          </li>
+          <li>
+            <em>Numbers represent the # of veggies surrounding that square</em>
+          </li>
+          <li>
+            <em>Avoid all the veggies and win the game... and a very delicious
+              pizza</em>
+          </li>
+        </ul>
+      </div>
+
+      <div id="game-board">
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+        <div class="square" id=""></div>
+      </div>
+
+      <p>Let's see what kind of pizza you will be enjoying</p>
+      <button id="reset">Reset the Board</button>
+      
+    </main>
+  </body>
 </html>

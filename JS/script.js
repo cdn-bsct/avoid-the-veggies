@@ -1,1 +1,7 @@
-console.log('IM ALIVE')
+/-- Constant Variables --/
+
+/-- State Variables --/
+
+/-- Cached Elements --/
+
+/-- Functions --/
