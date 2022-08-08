@@ -13,7 +13,7 @@ This is the wireframe of the project and pseudocode that will give me a rough st
 #### Pseudocode
 
 Have a function that randomly generates a position for the veggies on the 10x10 grid.
-- Auto generate so that 30% of the space is 
+- Auto generate so that 30% of the space is filled with veggies
 
 Use an event listener to listen for a click anywhere on the grid.
 - Generate an if statement to check to see if there is a veggie there

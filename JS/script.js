@@ -1,7 +1,26 @@
-/-- Constant Variables --/
+/*----------- Constant Variables ---------------*/
+const totalSquares = 100;
+/*----------- State Variables ------------------*/
 
-/-- State Variables --/
+/*----------- Cached Elements ------------------*/
+gameBoard = document.getElementById('game-board')
+resetBtn = document.getElementById('reset').addEventListener('click', reset)
+/*----------- Functions ------------------------*/
+init () 
 
-/-- Cached Elements --/
+function init() {
+    makeBoard();
+}
 
-/-- Functions --/
+function reset() {
+    console.log('button clicked')
+}
+
+function makeBoard() {
+    console.log('i got the div board')
+    for (let i = 0; i < 100; i++) {
+        let squ= document.createElement('div')
+        squ.classList = "square"
+        gameBoard.append(squ)
+    }
+}
