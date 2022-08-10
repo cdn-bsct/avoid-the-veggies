@@ -23,6 +23,11 @@ li {
   font-family: lucida Grande;
 }
 
+ul {
+  padding-right: 5px;
+  border: 2px dashed rgb(101, 151, 25);
+}
+
 li {
   list-style: none;
   text-align: left;
