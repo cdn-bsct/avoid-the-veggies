@@ -15,6 +15,7 @@ main {
 h1 {
   font-size: 100px;
   margin-bottom: 5px;
+  margin-top: 20px;
   color: rgb(101, 151, 25);
 }
 p,
@@ -28,13 +29,23 @@ li {
   padding: 3px;
 }
 
-#reset {
+button:hover {
+  background-color: rgb(220, 168, 83);
+}
+
+#reset, #dev-mode{
   width: 200px;
-  height: 50px;
+  height: 35px;
+  
   background-color: rgb(50, 46, 46);
   color: white;
   font-size: large;
   font-family: Mouse memoirs;
+  margin-bottom: 15px;
+}
+
+#dev-mode {
+  margin-left: 10px;
 }
 
 #veggies-title {
@@ -56,4 +67,9 @@ li {
     border: 1px solid black;
     background-color: #d19745;
     border-radius: 2px;
+}
+
+.safe{
+  color: black;
+  font-size: 25px;
 }
