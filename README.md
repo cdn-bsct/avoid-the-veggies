@@ -64,7 +64,7 @@ I primarily programmed this in javascript, but, the data of the elements is stor
 # Getting Started
 Follow the link below to play the game! 
 
-[Link to Game]()
+[Play Avoid the Veggies Here!](https://cdn-bsct.github.io/avoid-the-veggies/)
 
 ## **Next Steps**
 
