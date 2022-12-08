@@ -1,25 +1,25 @@
 /*----------- State Variables ------------------*/
 let squSpace = [];
-let gameBoard;
 let newBoard;
 let randomNum;
 let squ;
 let press;
-let message;
 let areaTotal;
 
 /*----------- Cached Elements ------------------*/
-gameBoard = document.getElementById("game-board");
+let gameBoard = document.getElementById("game-board");
 gameBoard.addEventListener("click", function (evt) {
   press = evt.target;
   playGame();
 });
 
-// end of game message
-message = document.querySelector("#game-msg");
+let message = document.querySelector("#game-msg");
 
-// difficulty buttons, reset button, dev mode button
 let difficulty = document.querySelectorAll(".mode");
+
+let easy = document.getElementById("Easy");
+let medium = document.getElementById("Medium");
+let hard = document.getElementById("Hard");
 
 resetBtn = document
   .getElementById("reset")
@@ -32,9 +32,10 @@ devBtn = document.getElementById("dev-mode").addEventListener("click", devMode);
 //----- Event Listeners -----//
 difficulty.forEach(function (button) {
   button.addEventListener("click", function (e) {
-    checkDifficulty(e.target);
+    setDifficulty(e.target);
   });
 });
+
 /*----------- Functions ------------------------*/
 init();
 
@@ -43,34 +44,29 @@ function init() {
   message.innerHTML = "Let's see what kind of pizza you will be enjoying";
 }
 
-function checkDifficulty(mode) {
+function setDifficulty(mode) {
   if (mode.innerHTML === "Easy") {
-    setActivity(mode.innerHTML);
+    document.getElementById("Easy").classList.add("active");
+    disableButtons(medium, hard);
     createBoard();
   } else if (mode.innerHTML === "Medium") {
-    setActivity(mode.innerHTML);
+    document.getElementById("Medium").classList.add("active");
+    disableButtons(easy, hard);
     createBoard();
   } else {
-    setActivity(mode.innerHTML);
+    document.getElementById("Hard").classList.add("active");
+    disableButtons(easy, medium);
     createBoard();
   }
 }
 
-function setActivity(active) {
-  if (active === "Easy") {
-    document.getElementById("Easy").classList.add("active");
-    document.getElementById("Medium").classList.add("inactive");
-    document.getElementById("Hard").classList.add("inactive");
-  } else if (active === "Medium") {
-    document.getElementById("Easy").classList.add("inactive");
-    document.getElementById("Medium").classList.add("active");
-    document.getElementById("Hard").classList.add("inactive");
-  } else {
-    document.getElementById("Easy").classList.add("inactive");
-    document.getElementById("Medium").classList.add("inactive");
-    document.getElementById("Hard").classList.add("active");
-  }
+function disableButtons(btn1, btn2) {
+  btn1.setAttribute("disabled", "");
+  btn2.setAttribute("disabled", "");
+  btn1.classList.add("inactive");
+  btn2.classList.add("inactive");
 }
+
 function createBoard(size) {
   console.log("creating board");
 }
