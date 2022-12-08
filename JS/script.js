@@ -68,7 +68,9 @@ function disableButtons(btn1, btn2) {
 function createBoard(x, y) {
   gameBoard.style.setProperty(`grid-template-columns`, `repeat(${x}, 50px)`);
   gameBoard.style.setProperty(`grid-template-rows`, `repeat(${y}, 50px)`);
+
   let size = x * y;
+
   while (squSpace.length < size) {
     squSpace.push(null);
     if (squSpace.length === size) {
@@ -80,7 +82,25 @@ function createBoard(x, y) {
 }
 
 function fillBoard(size) {
-  console.log("fill it up", size);
+  if (size === 100) bombPercent = 0.3;
+  if (size === 144) bombPercent = 0.375;
+  if (size === 225) bombPercent = 0.45;
+
+  let bombs = bombLocation(size, bombPercent);
+  console.log(bombs, "fillboard function");
+}
+
+function bombLocation(size, percent) {
+  let bombArr = [];
+  let counter = 0;
+  while (counter != Math.floor(size * percent)) {
+    let x = Math.floor(Math.random() * size);
+    if (!bombArr.includes(x)) {
+      bombArr.push(x);
+      counter++;
+    }
+  }
+  return bombArr;
 }
 
 function reset() {
