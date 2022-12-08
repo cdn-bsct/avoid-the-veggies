@@ -1,66 +1,77 @@
 * {
-  background-color: lightgray;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-}
-
-main {
-  text-align: center;
-  font-family: mouse memoirs;
-}
-
-h1 {
-  font-size: 100px;
-  margin-bottom: 5px;
-  margin-top: 20px;
-  color: rgb(101, 151, 25);
-}
-p,
-li {
   font-family: lucida Grande;
 }
 
+body {
+  background-color: #c1c1c1;
+  display: grid;
+  grid-template-columns: 2fr 6fr;
+  margin: 0;
+}
+
+.sidebar {
+  background-color: #b9b9b9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
+  height: 100vh;
+}
+
+.tips {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tips > h2 {
+  margin: none;
+}
+
 ul {
-  padding-right: 5px;
-  border: 2px dashed rgb(101, 151, 25);
+  width: 75%;
+  padding: 0;
+  border-radius: 15px;
 }
 
 li {
   list-style: none;
-  text-align: left;
-  padding: 3px;
+  margin-bottom: 20px;
+}
+
+h1,
+#veggies-title {
+  font-family: mouse memoirs;
+  font-size: 65px;
+  margin-bottom: 5px;
+  margin-top: 20px;
+  color: rgb(101, 151, 25);
+}
+
+#veggies-title {
+  text-decoration: line-through;
+  text-decoration-color: red;
+}
+
+button {
+  background-color: rgb(101, 151, 25);
+  border-radius: 10%;
+  width: max-content;
+  height: 30px;
 }
 
 button:hover {
   background-color: rgb(220, 168, 83);
 }
 
-#reset, #dev-mode{
-  width: 200px;
-  height: 35px;
-  
-  background-color: rgb(50, 46, 46);
-  color: white;
-  font-size: large;
-  font-family: Mouse memoirs;
-  margin-bottom: 15px;
+.nav-footer {
+  text-align: center;
 }
 
 #dev-mode {
   margin-left: 10px;
 }
 
-#veggies-title {
-  color: rgb(101, 151, 25);
-  text-decoration: line-through;
-  text-decoration-color: red;
-}
-#rules {
-  max-width: 700px;
-}
 #game-board {
   display: grid;
   grid-template-columns: repeat(10, 50px);
@@ -68,13 +79,14 @@ button:hover {
   justify-content: center;
 }
 
-.safe, .bomb {
-    border: 1px solid black;
-    background-color: #d19745;
-    border-radius: 2px;
+.safe,
+.bomb {
+  border: 1px solid black;
+  background-color: #d19745;
+  border-radius: 2px;
 }
 
-.safe{
+.safe {
   color: black;
   font-size: 25px;
 }

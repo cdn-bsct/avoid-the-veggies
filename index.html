@@ -18,36 +18,42 @@
     <script defer src="JS/script.js"></script>
     <title>Avoid the Veggies!!</title>
   </head>
+
   <body>
-    <main>
+    <nav class="sidebar">
       <h1>AVOID THE <span id="veggies-title">VEGGIES</span></h1>
-      <div id="rules">
-        <p>
-          The game for those who <strong>DO NOT</strong> like veggies on their
-          pizza
-        </p>
+
+      <div class="rules">
+        <div class="difficulty">
+          <h4>Select a difficulty to play</h4>
+          <button>Easy</button>
+          <button>Medium</button>
+          <button>Hard</button>
+        </div>
+      </div>
+
+      <h4>Click anywhere on the grid to begin</h4>
+
+      <div class="tips">
+        <h2>Tips & Hints</h2>
         <ul>
           <li>
-            <em>Click anywhere on the grid to begin</em>
+            Numbers in the squares represent the # of bombs in the surrounding,
+            adjacent tiles
           </li>
-          <li>
-            <em>Numbers represent the # of veggies surrounding that square</em>
-          </li>
-          <li>
-            <em
-              >Avoid all the veggies and win the game... and a very delicious
-              pizza</em
-            >
-          </li>
+          <li>You can left click to flag the squares you think are bombs</li>
         </ul>
       </div>
-      <p id="game-msg">Let's see what kind of pizza you will be enjoying</p>
-      <button id="reset">Reset the Board</button>
-      <button id="dev-mode">Dev Mode</button>
 
+      <div class="nav-footer">
+        <h4 id="game-msg">Let's see what kind of pizza you will be enjoying</h4>
+        <button id="reset">Reset the Board</button>
+        <button id="dev-mode">Dev Mode</button>
+      </div>
+    </nav>
+
+    <main>
       <div id="game-board"></div>
-      
-     
     </main>
   </body>
 </html>
