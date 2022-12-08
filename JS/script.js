@@ -8,33 +8,31 @@ let areaTotal;
 
 /*----------- Cached Elements ------------------*/
 let gameBoard = document.getElementById("game-board");
+let message = document.querySelector("#game-msg");
+let difficulty = document.querySelectorAll(".mode");
+let easy = document.getElementById("Easy");
+let medium = document.getElementById("Medium");
+let hard = document.getElementById("Hard");
+let resetBtn = document.getElementById("reset");
+let devBtn = document.getElementById("dev-mode");
+
+//----- Event Listeners -----//
+difficulty.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    setDifficulty(e.target);
+  });
+});
+
 gameBoard.addEventListener("click", function (evt) {
   press = evt.target;
   playGame();
 });
 
-let message = document.querySelector("#game-msg");
-
-let difficulty = document.querySelectorAll(".mode");
-
-let easy = document.getElementById("Easy");
-let medium = document.getElementById("Medium");
-let hard = document.getElementById("Hard");
-
-resetBtn = document
-  .getElementById("reset")
-  .addEventListener("click", function () {
-    reset();
-  });
-
-devBtn = document.getElementById("dev-mode").addEventListener("click", devMode);
-
-//----- Event Listeners -----//
-difficulty.forEach(function (button) {
-  button.addEventListener("click", function (e) {
-    setDifficulty(e.target);
-  });
+resetBtn.addEventListener("click", function () {
+  reset();
 });
+
+devBtn.addEventListener("click", devMode);
 
 /*----------- Functions ------------------------*/
 init();
@@ -48,15 +46,15 @@ function setDifficulty(mode) {
   if (mode.innerHTML === "Easy") {
     document.getElementById("Easy").classList.add("active");
     disableButtons(medium, hard);
-    createBoard();
+    createBoard(10, 10);
   } else if (mode.innerHTML === "Medium") {
     document.getElementById("Medium").classList.add("active");
     disableButtons(easy, hard);
-    createBoard();
+    createBoard(12, 12);
   } else {
     document.getElementById("Hard").classList.add("active");
     disableButtons(easy, medium);
-    createBoard();
+    createBoard(15, 15);
   }
 }
 
@@ -67,11 +65,31 @@ function disableButtons(btn1, btn2) {
   btn2.classList.add("inactive");
 }
 
-function createBoard(size) {
-  console.log("creating board");
+function createBoard(x, y) {
+  gameBoard.style.setProperty(`grid-template-columns`, `repeat(${x}, 50px)`);
+  gameBoard.style.setProperty(`grid-template-rows`, `repeat(${y}, 50px)`);
+  let size = x * y;
+  while (squSpace.length < size) {
+    squSpace.push(null);
+    if (squSpace.length === size) {
+      break;
+    }
+  }
+
+  fillBoard(size);
+}
+
+function fillBoard(size) {
+  console.log("fill it up", size);
 }
 
 function reset() {
+  difficulty.forEach((button) => {
+    button.removeAttribute("disabled");
+    button.classList.remove("inactive");
+    button.classList.remove("active");
+  });
+
   newBoard = document.createElement("div");
   newBoard.setAttribute("id", "game-board");
   newBoard.addEventListener("click", function (evt) {
