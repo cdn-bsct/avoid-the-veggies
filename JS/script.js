@@ -14,31 +14,77 @@ gameBoard.addEventListener("click", function (evt) {
   press = evt.target;
   playGame();
 });
+
+// end of game message
 message = document.querySelector("#game-msg");
-resetBtn = document.getElementById("reset").addEventListener("click", function () {
+
+// difficulty buttons, reset button, dev mode button
+let difficulty = document.querySelectorAll(".mode");
+
+resetBtn = document
+  .getElementById("reset")
+  .addEventListener("click", function () {
     reset();
   });
+
 devBtn = document.getElementById("dev-mode").addEventListener("click", devMode);
+
+//----- Event Listeners -----//
+difficulty.forEach(function (button) {
+  button.addEventListener("click", function (e) {
+    checkDifficulty(e.target);
+  });
+});
 /*----------- Functions ------------------------*/
 init();
 
 function init() {
   squSpace = [];
-  message.innerHTML = "Let's see what kind of pizza you will be enjoying"
-  makeBoard(gameBoard);
+  message.innerHTML = "Let's see what kind of pizza you will be enjoying";
+}
+
+function checkDifficulty(mode) {
+  if (mode.innerHTML === "Easy") {
+    setActivity(mode.innerHTML);
+    createBoard();
+  } else if (mode.innerHTML === "Medium") {
+    setActivity(mode.innerHTML);
+    createBoard();
+  } else {
+    setActivity(mode.innerHTML);
+    createBoard();
+  }
+}
+
+function setActivity(active) {
+  if (active === "Easy") {
+    document.getElementById("Easy").classList.add("active");
+    document.getElementById("Medium").classList.add("inactive");
+    document.getElementById("Hard").classList.add("inactive");
+  } else if (active === "Medium") {
+    document.getElementById("Easy").classList.add("inactive");
+    document.getElementById("Medium").classList.add("active");
+    document.getElementById("Hard").classList.add("inactive");
+  } else {
+    document.getElementById("Easy").classList.add("inactive");
+    document.getElementById("Medium").classList.add("inactive");
+    document.getElementById("Hard").classList.add("active");
+  }
+}
+function createBoard(size) {
+  console.log("creating board");
 }
 
 function reset() {
-  
-  newBoard = document.createElement('div')
-  newBoard.setAttribute('id','game-board')
+  newBoard = document.createElement("div");
+  newBoard.setAttribute("id", "game-board");
   newBoard.addEventListener("click", function (evt) {
     press = evt.target;
     playGame();
   });
-  gameBoard.replaceWith(newBoard)
-  gameBoard = newBoard
-  
+  gameBoard.replaceWith(newBoard);
+  gameBoard = newBoard;
+
   init();
 }
 
@@ -94,7 +140,6 @@ function playGame() {
 }
 
 function makeBoard(gameBoard) {
-
   for (let i = 0; i < 100; i++) {
     squ = document.createElement("button");
     squ.className = "safe";
@@ -133,19 +178,39 @@ function makeBoard(gameBoard) {
         squSpace[i].value = ++areaTotal;
       }
       // check down left
-      if (  i > 0 &&  i % 10 &&  i + 10 <= 99 &&  squSpace[i + 9].className === "bomb") {
+      if (
+        i > 0 &&
+        i % 10 &&
+        i + 10 <= 99 &&
+        squSpace[i + 9].className === "bomb"
+      ) {
         squSpace[i].value = ++areaTotal;
       }
       // check down right
-      if (  i > 0 &&  (i % 10) - 9 &&  i + 10 < 99 &&  squSpace[i + 11].className === "bomb") {
+      if (
+        i > 0 &&
+        (i % 10) - 9 &&
+        i + 10 < 99 &&
+        squSpace[i + 11].className === "bomb"
+      ) {
         squSpace[i].value = ++areaTotal;
       }
       // check up left
-      if (   i < 99 &&   i % 10 &&   i - 10 > 0 &&   squSpace[i - 11].className === "bomb" ) {
+      if (
+        i < 99 &&
+        i % 10 &&
+        i - 10 > 0 &&
+        squSpace[i - 11].className === "bomb"
+      ) {
         squSpace[i].value = ++areaTotal;
       }
       // check up right
-      if (  i < 99 &&  (i % 10) - 9 &&  i - 10 > 0 &&  squSpace[i - 9].className === "bomb") {
+      if (
+        i < 99 &&
+        (i % 10) - 9 &&
+        i - 10 > 0 &&
+        squSpace[i - 9].className === "bomb"
+      ) {
         squSpace[i].value = ++areaTotal;
       }
     }
