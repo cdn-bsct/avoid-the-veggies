@@ -68,8 +68,10 @@ button:hover {
   text-align: center;
 }
 
-#dev-mode {
-  margin-left: 10px;
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #game-board {
