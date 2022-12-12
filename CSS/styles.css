@@ -83,11 +83,14 @@ main {
   justify-content: center;
 }
 
-.safe,
-.bomb {
+.tile {
   border: 1px solid black;
   background-color: #d19745;
   border-radius: 2px;
+}
+
+.tile:hover {
+  background-color: #cca772;
 }
 
 .safe {

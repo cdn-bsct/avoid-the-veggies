@@ -87,7 +87,18 @@ function fillBoard(size) {
   if (size === 225) bombPercent = 0.45;
 
   let bombs = bombLocation(size, bombPercent);
-  console.log(bombs, "fillboard function");
+  bombs.forEach((bomb) => {
+    squSpace.splice(bomb, 1, "bomb");
+  });
+
+  squSpace.forEach((tile, idx) => {
+    let tileDiv = document.createElement("div");
+    tileDiv.style.setProperty("width", "50px");
+    tileDiv.style.setProperty("height", "50px");
+    tileDiv.classList.add("tile");
+    tileDiv.setAttribute("id", `${idx}`);
+    gameBoard.appendChild(tileDiv);
+  });
 }
 
 function bombLocation(size, percent) {
