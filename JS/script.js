@@ -93,6 +93,10 @@ function fillBoard(size) {
     let tileDiv = document.createElement("div");
     tileDiv.style.setProperty("width", "50px");
     tileDiv.style.setProperty("height", "50px");
+    tileDiv.style.setProperty("display", "flex");
+    tileDiv.style.setProperty("justify-content", "center");
+    tileDiv.style.setProperty("align-items", "center");
+
     tileDiv.classList.add("tile");
     tileDiv.setAttribute("id", `${idx}`);
     gameBoard.appendChild(tileDiv);
@@ -179,11 +183,17 @@ function devMode() {
   addLegend();
   squSpace.forEach((el, idx) => {
     if (el === "bomb") {
-      let x = document.getElementById(`${idx}`);
-      x.innerHTML = "bomb";
+      let w = document.getElementById(`${idx}`);
+      let x = document.createElement("i");
+      x.classList.add("material-icons");
+      x.innerHTML = "clear";
+      w.appendChild(x);
     } else {
       let y = document.getElementById(`${idx}`);
-      y.innerHTML = "safe";
+      let z = document.createElement("i");
+      z.classList.add("material-icons");
+      z.innerHTML = "check";
+      y.appendChild(z);
     }
   });
 }
