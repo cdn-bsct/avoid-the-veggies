@@ -17,6 +17,7 @@ let hard = document.getElementById("Hard");
 let resetBtn = document.getElementById("reset");
 let devBtn = document.getElementById("dev-mode");
 let nav = document.querySelector(".sidebar");
+let legendDiv = document.createElement("div");
 
 //----- Event Listeners -----//
 difficulty.forEach((button) => {
@@ -90,16 +91,16 @@ function fillBoard(size) {
   });
 
   squSpace.forEach((tile, idx) => {
-    let tileDiv = document.createElement("div");
-    tileDiv.style.setProperty("width", "50px");
-    tileDiv.style.setProperty("height", "50px");
-    tileDiv.style.setProperty("display", "flex");
-    tileDiv.style.setProperty("justify-content", "center");
-    tileDiv.style.setProperty("align-items", "center");
+    let tileBtn = document.createElement("button");
+    tileBtn.style.setProperty("width", "50px");
+    tileBtn.style.setProperty("height", "50px");
+    tileBtn.style.setProperty("display", "flex");
+    tileBtn.style.setProperty("justify-content", "center");
+    tileBtn.style.setProperty("align-items", "center");
 
-    tileDiv.classList.add("tile");
-    tileDiv.setAttribute("id", `${idx}`);
-    gameBoard.appendChild(tileDiv);
+    tileBtn.classList.add("tile");
+    tileBtn.setAttribute("id", `${idx}`);
+    gameBoard.appendChild(tileBtn);
   });
 }
 
@@ -123,23 +124,23 @@ function reset() {
     button.classList.remove("active");
   });
 
-  let x = document.querySelector(".legend");
-  x.remove();
-
   newBoard = document.createElement("div");
   newBoard.setAttribute("id", "game-board");
   newBoard.addEventListener("click", function (evt) {
     press = evt.target;
-    playGame();
+    checkTile();
   });
   gameBoard.replaceWith(newBoard);
   gameBoard = newBoard;
 
+  let newLegend = document.createElement("div");
+  newLegend.setAttribute("class", "legend");
+  legendDiv.replaceWith(newLegend);
+  legendDiv = newLegend;
   init();
 }
 
 function addLegend() {
-  let legendDiv = document.createElement("div");
   legendDiv.classList.add("legend");
   legendDiv.style.setProperty("display", "flex");
   legendDiv.style.setProperty("margin-top", "20px");
@@ -171,6 +172,7 @@ function addLegend() {
   let icon2 = document.createElement("i");
   icon2.classList.add("material-icons");
   icon2.style.setProperty("font-size", "40px");
+  icon2.style.setProperty("color", "red");
   icon2.innerHTML = "clear";
   clearDiv.appendChild(icon2);
 
@@ -186,6 +188,7 @@ function devMode() {
       let w = document.getElementById(`${idx}`);
       let x = document.createElement("i");
       x.classList.add("material-icons");
+      x.style.setProperty("color", "red");
       x.innerHTML = "clear";
       w.appendChild(x);
     } else {
@@ -199,8 +202,15 @@ function devMode() {
 }
 
 function checkTile(tile) {
+  console.log(squSpace);
+  console.log(tile, "log");
+  console.dir(tile, "dir");
+  console.log(tile.id);
+  console.log(squSpace[parseInt(tile.id)]);
   let selected = squSpace[parseInt(tile.id)];
+  console.log(selected);
   if (selected === "bomb") {
+    console.log("Bombs Away");
     endGame();
   } else {
     console.log("Not a Bomb");
@@ -218,9 +228,7 @@ function checkTile(tile) {
 function endGame() {
   message.innerHTML =
     "DARN! It looks like you will be enjoying some veggies tonight..sorry";
-  gameTiles.forEach((tile) => {
-    tile.setAttribute("pointer-events", "none");
-  });
+  gameBoard.setAttribute("pointer-events", "none");
 }
 
 function checkWin(btn) {
