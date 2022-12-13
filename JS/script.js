@@ -2,13 +2,9 @@
 let squSpace = [];
 let newBoard;
 let randomNum;
-let squ;
-let press;
-let areaTotal;
 
 /*----------- Cached Elements ------------------*/
 let gameBoard = document.getElementById("game-board");
-let gameTiles = document.querySelectorAll(".tile");
 let message = document.querySelector("#game-msg");
 let difficulty = document.querySelectorAll(".mode");
 let easy = document.getElementById("Easy");
@@ -26,6 +22,7 @@ difficulty.forEach((button) => {
   });
 });
 gameBoard.addEventListener("click", function (evt) {
+  console.log(evt);
   checkTile(evt.target);
 });
 resetBtn.addEventListener("click", function () {
@@ -38,6 +35,7 @@ init();
 
 function init() {
   squSpace = [];
+  gameBoard = document.getElementById("game-board");
   message.innerHTML = "Let's see what kind of pizza you will be enjoying";
 }
 
@@ -92,12 +90,6 @@ function fillBoard(size) {
 
   squSpace.forEach((tile, idx) => {
     let tileBtn = document.createElement("button");
-    tileBtn.style.setProperty("width", "50px");
-    tileBtn.style.setProperty("height", "50px");
-    tileBtn.style.setProperty("display", "flex");
-    tileBtn.style.setProperty("justify-content", "center");
-    tileBtn.style.setProperty("align-items", "center");
-
     tileBtn.classList.add("tile");
     tileBtn.setAttribute("id", `${idx}`);
     gameBoard.appendChild(tileBtn);
@@ -137,6 +129,7 @@ function reset() {
   newLegend.setAttribute("class", "legend");
   legendDiv.replaceWith(newLegend);
   legendDiv = newLegend;
+
   init();
 }
 
@@ -187,6 +180,7 @@ function devMode() {
     if (el === "bomb") {
       let w = document.getElementById(`${idx}`);
       let x = document.createElement("i");
+      x.setAttribute("id", `${idx}`);
       x.classList.add("material-icons");
       x.style.setProperty("color", "red");
       x.innerHTML = "clear";
@@ -195,6 +189,7 @@ function devMode() {
       let y = document.getElementById(`${idx}`);
       let z = document.createElement("i");
       z.classList.add("material-icons");
+      z.setAttribute("id", `${idx}`);
       z.innerHTML = "check";
       y.appendChild(z);
     }
@@ -202,11 +197,7 @@ function devMode() {
 }
 
 function checkTile(tile) {
-  console.log(squSpace);
-  console.log(tile, "log");
-  console.dir(tile, "dir");
-  console.log(tile.id);
-  console.log(squSpace[parseInt(tile.id)]);
+  console.log(tile);
   let selected = squSpace[parseInt(tile.id)];
   console.log(selected);
   if (selected === "bomb") {
@@ -228,7 +219,10 @@ function checkTile(tile) {
 function endGame() {
   message.innerHTML =
     "DARN! It looks like you will be enjoying some veggies tonight..sorry";
-  gameBoard.setAttribute("pointer-events", "none");
+  let gameTiles = document.querySelectorAll(".tile");
+  gameTiles.forEach((tile) => {
+    tile.setAttribute("disabled", "true");
+  });
 }
 
 function checkWin(btn) {
