@@ -8,6 +8,7 @@ let areaTotal;
 
 /*----------- Cached Elements ------------------*/
 let gameBoard = document.getElementById("game-board");
+let gameTiles = document.querySelectorAll(".tile");
 let message = document.querySelector("#game-msg");
 let difficulty = document.querySelectorAll(".mode");
 let easy = document.getElementById("Easy");
@@ -15,6 +16,7 @@ let medium = document.getElementById("Medium");
 let hard = document.getElementById("Hard");
 let resetBtn = document.getElementById("reset");
 let devBtn = document.getElementById("dev-mode");
+let nav = document.querySelector(".sidebar");
 
 //----- Event Listeners -----//
 difficulty.forEach((button) => {
@@ -22,16 +24,12 @@ difficulty.forEach((button) => {
     setDifficulty(e.target);
   });
 });
-
 gameBoard.addEventListener("click", function (evt) {
-  press = evt.target;
-  playGame();
+  checkTile(evt.target);
 });
-
 resetBtn.addEventListener("click", function () {
   reset();
 });
-
 devBtn.addEventListener("click", devMode);
 
 /*----------- Functions ------------------------*/
@@ -121,6 +119,9 @@ function reset() {
     button.classList.remove("active");
   });
 
+  let x = document.querySelector(".legend");
+  x.remove();
+
   newBoard = document.createElement("div");
   newBoard.setAttribute("id", "game-board");
   newBoard.addEventListener("click", function (evt) {
@@ -133,26 +134,83 @@ function reset() {
   init();
 }
 
+function addLegend() {
+  let legendDiv = document.createElement("div");
+  legendDiv.classList.add("legend");
+  legendDiv.style.setProperty("display", "flex");
+  legendDiv.style.setProperty("margin-top", "20px");
+  legendDiv.style.setProperty("flex-direction", "column");
+  nav.appendChild(legendDiv);
+
+  let checkDiv = document.createElement("div");
+  checkDiv.style.setProperty("display", "flex");
+  checkDiv.style.setProperty("justify-content", "center");
+  checkDiv.style.setProperty("align-items", "center");
+  legendDiv.appendChild(checkDiv);
+
+  let clearDiv = document.createElement("div");
+  clearDiv.style.setProperty("display", "flex");
+  clearDiv.style.setProperty("justify-content", "center");
+  clearDiv.style.setProperty("align-items", "center");
+  legendDiv.appendChild(clearDiv);
+
+  let icon1 = document.createElement("i");
+  icon1.classList.add("material-icons");
+  icon1.style.setProperty("font-size", "40px");
+  icon1.innerHTML = "check";
+  checkDiv.appendChild(icon1);
+
+  let checkRule = document.createElement("h5");
+  checkRule.innerHTML = " - Safe Spaces";
+  checkDiv.appendChild(checkRule);
+
+  let icon2 = document.createElement("i");
+  icon2.classList.add("material-icons");
+  icon2.style.setProperty("font-size", "40px");
+  icon2.innerHTML = "clear";
+  clearDiv.appendChild(icon2);
+
+  let clearRule = document.createElement("h5");
+  clearRule.innerHTML = " - Bomb Spaces";
+  clearDiv.appendChild(clearRule);
+}
+
 function devMode() {
-  squSpace.forEach(function (el) {
-    let x = el.className;
-    el.innerHTML = x;
-    el.style.setProperty("font-size", "12px");
+  addLegend();
+  squSpace.forEach((el, idx) => {
+    if (el === "bomb") {
+      let x = document.getElementById(`${idx}`);
+      x.innerHTML = "bomb";
+    } else {
+      let y = document.getElementById(`${idx}`);
+      y.innerHTML = "safe";
+    }
   });
 }
 
+function checkTile(tile) {
+  let selected = squSpace[parseInt(tile.id)];
+  if (selected === "bomb") {
+    endGame();
+  } else {
+    console.log("Not a Bomb");
+  }
+  // if (press.className === "bomb") {
+  //   endGame();
+  // } else if (press.className === "safe" && press.value >= 0) {
+  //   press.innerHTML = press.value;
+  //   press.disabled = true;
+  //   press.style.setProperty("background-color", "rgb(178,20,20)");
+  //   checkWin(press);
+  // }
+}
+
 function endGame() {
-  x = document.getElementsByClassName("safe");
-  for (let i = 0; i < x.length; i++) {
-    x[i].disabled = true;
-  }
-  y = document.getElementsByClassName("bomb");
-  for (let i = 0; i < y.length; i++) {
-    y[i].disabled = true;
-    y[i].style.setProperty("background-color", "green");
-  }
   message.innerHTML =
     "DARN! It looks like you will be enjoying some veggies tonight..sorry";
+  gameTiles.forEach((tile) => {
+    tile.setAttribute("pointer-events", "none");
+  });
 }
 
 function checkWin(btn) {
@@ -170,94 +228,5 @@ function checkWin(btn) {
       y[i].disabled = true;
     }
     message.innerHTML = "OH YEAH! Enjoy your meat lovers pizza! ";
-  }
-}
-
-function playGame() {
-  if (press.className === "bomb") {
-    endGame();
-  } else if (press.className === "safe" && press.value >= 0) {
-    press.innerHTML = press.value;
-    press.disabled = true;
-    press.style.setProperty("background-color", "rgb(178,20,20)");
-    checkWin(press);
-  }
-}
-
-function makeBoard(gameBoard) {
-  for (let i = 0; i < 100; i++) {
-    squ = document.createElement("button");
-    squ.className = "safe";
-    squ.value = 0;
-    squ.id = i;
-    gameBoard.appendChild(squ);
-    squSpace.push(squ);
-  }
-
-  for (i = 0; i < 30; i++) {
-    randomNum = Math.floor(Math.random() * 100);
-    squSpace.forEach(function (el) {
-      if (el.id == randomNum) {
-        el.className = "bomb";
-      }
-    });
-  }
-
-  for (let i = 0; i < squSpace.length; i++) {
-    areaTotal = 0;
-    if (squSpace[i].className === "safe") {
-      // check left
-      if (i > 0 && i % 10 && squSpace[i - 1].className === "bomb") {
-        squSpace[i].value = ++areaTotal;
-      }
-      // check right
-      if (i < 99 && (i % 10) - 9 && squSpace[i + 1].className === "bomb") {
-        squSpace[i].value = ++areaTotal;
-      }
-      // check down
-      if (i > 0 && i + 10 < 99 && squSpace[i + 10].className === "bomb") {
-        squSpace[i].value = ++areaTotal;
-      }
-      // check up
-      if (i < 99 && i - 10 > 0 && squSpace[i - 10].className === "bomb") {
-        squSpace[i].value = ++areaTotal;
-      }
-      // check down left
-      if (
-        i > 0 &&
-        i % 10 &&
-        i + 10 <= 99 &&
-        squSpace[i + 9].className === "bomb"
-      ) {
-        squSpace[i].value = ++areaTotal;
-      }
-      // check down right
-      if (
-        i > 0 &&
-        (i % 10) - 9 &&
-        i + 10 < 99 &&
-        squSpace[i + 11].className === "bomb"
-      ) {
-        squSpace[i].value = ++areaTotal;
-      }
-      // check up left
-      if (
-        i < 99 &&
-        i % 10 &&
-        i - 10 > 0 &&
-        squSpace[i - 11].className === "bomb"
-      ) {
-        squSpace[i].value = ++areaTotal;
-      }
-      // check up right
-      if (
-        i < 99 &&
-        (i % 10) - 9 &&
-        i - 10 > 0 &&
-        squSpace[i - 9].className === "bomb"
-      ) {
-        squSpace[i].value = ++areaTotal;
-      }
-    }
   }
 }
