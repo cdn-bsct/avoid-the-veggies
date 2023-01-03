@@ -209,7 +209,6 @@ function checkTile(tile) {
   let selected = squSpace[parseInt(tile.id)];
   console.log(selected);
   if (selected === "bomb") {
-    console.log("Bombs Away");
     endGame();
   } else {
     console.log("Not a Bomb");
@@ -227,13 +226,6 @@ function checkTile(tile) {
 function endGame() {
   message.innerHTML =
     "DARN! It looks like you will be enjoying some veggies tonight..sorry";
-
-  console.log(squSpace);
-
-  squSpace.forEach((tile) => {
-    if (tile === null) {
-    }
-  });
 
   let gameTiles = document.querySelectorAll(".tile");
   gameTiles.forEach((tile) => {
