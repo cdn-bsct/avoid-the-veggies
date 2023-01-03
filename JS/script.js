@@ -1,5 +1,6 @@
 /*----------- State Variables ------------------*/
 let squSpace = [];
+let bombArr = [];
 let newBoard;
 let randomNum;
 
@@ -28,13 +29,19 @@ gameBoard.addEventListener("click", function (evt) {
 resetBtn.addEventListener("click", function () {
   reset();
 });
-devBtn.addEventListener("click", devMode);
+devBtn.addEventListener("click", function () {
+  if (devBtn.className != "active") {
+    devBtn.classList.add("active");
+    devMode();
+  }
+});
 
 /*----------- Functions ------------------------*/
 init();
 
 function init() {
   squSpace = [];
+  bombArr = [];
   message.innerHTML = "Let's see what kind of pizza you will be enjoying";
 }
 
@@ -96,7 +103,6 @@ function fillBoard(size) {
 }
 
 function bombLocation(size, percent) {
-  let bombArr = [];
   let counter = 0;
   while (counter != Math.floor(size * percent)) {
     let x = Math.floor(Math.random() * size);
@@ -125,6 +131,8 @@ function reset() {
     console.log(evt);
     checkTile(evt.target);
   });
+
+  devBtn.classList.remove("active");
 
   let newLegend = document.createElement("div");
   newLegend.setAttribute("class", "legend");
@@ -175,6 +183,7 @@ function addLegend() {
 
 function devMode() {
   addLegend();
+
   squSpace.forEach((el, idx) => {
     if (el === "bomb") {
       let w = document.getElementById(`${idx}`);
@@ -218,9 +227,20 @@ function checkTile(tile) {
 function endGame() {
   message.innerHTML =
     "DARN! It looks like you will be enjoying some veggies tonight..sorry";
+
+  console.log(squSpace);
+
+  squSpace.forEach((tile) => {
+    if (tile === null) {
+    }
+  });
+
   let gameTiles = document.querySelectorAll(".tile");
   gameTiles.forEach((tile) => {
     tile.setAttribute("disabled", "true");
+    squSpace[tile.id] === "bomb"
+      ? tile.style.setProperty("background-color", "rgb(101, 151, 25)")
+      : tile.style.setProperty("background-color", "#a88852");
   });
 }
 
