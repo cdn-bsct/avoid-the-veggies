@@ -35,7 +35,6 @@ init();
 
 function init() {
   squSpace = [];
-  gameBoard = document.getElementById("game-board");
   message.innerHTML = "Let's see what kind of pizza you will be enjoying";
 }
 
@@ -110,6 +109,8 @@ function bombLocation(size, percent) {
 }
 
 function reset() {
+  init();
+
   difficulty.forEach((button) => {
     button.removeAttribute("disabled");
     button.classList.remove("inactive");
@@ -118,19 +119,17 @@ function reset() {
 
   newBoard = document.createElement("div");
   newBoard.setAttribute("id", "game-board");
-  newBoard.addEventListener("click", function (evt) {
-    press = evt.target;
-    checkTile();
-  });
   gameBoard.replaceWith(newBoard);
   gameBoard = newBoard;
+  gameBoard.addEventListener("click", function (evt) {
+    console.log(evt);
+    checkTile(evt.target);
+  });
 
   let newLegend = document.createElement("div");
   newLegend.setAttribute("class", "legend");
   legendDiv.replaceWith(newLegend);
   legendDiv = newLegend;
-
-  init();
 }
 
 function addLegend() {
