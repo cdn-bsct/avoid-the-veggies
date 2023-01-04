@@ -104,3 +104,14 @@ main {
   color: black;
   font-size: 25px;
 }
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.victory {
+  color: white;
+  background-color: orange;
+  border-radius: 30px;
+}

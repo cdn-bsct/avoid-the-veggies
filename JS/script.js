@@ -6,6 +6,7 @@ let newBoard;
 let randomNum;
 
 /*----------- Cached Elements ------------------*/
+let main = document.querySelector("main");
 let gameBoard = document.getElementById("game-board");
 let message = document.querySelector("#game-msg");
 let difficulty = document.querySelectorAll(".mode");
@@ -137,6 +138,8 @@ function reset() {
   newLegend.setAttribute("class", "legend");
   legendDiv.replaceWith(newLegend);
   legendDiv = newLegend;
+
+  message.classList.remove("victory");
 }
 
 function addLegend() {
@@ -318,4 +321,5 @@ function checkWin() {
 
 function victory() {
   message.innerHTML = "WINNER WINNER CHICKEN DINNER! NO VEGGIE PIZZA FOR YOU!!";
+  message.classList.add("victory");
 }
