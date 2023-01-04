@@ -240,14 +240,17 @@ function aroundMe(tile) {
       if (currLocation % 10 === 0) {
         leftEdge.forEach((position) => {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
+          squSpace[currLocation] = "safe";
         });
       } else if (currLocation % 10 === 9) {
         rightEdge.forEach((position) => {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
+          squSpace[currLocation] = "safe";
         });
       } else {
         middle.forEach((position) => {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
+          squSpace[currLocation] = "safe";
         });
       }
 
@@ -262,14 +265,17 @@ function aroundMe(tile) {
       if (currLocation % 12 === 0) {
         leftEdge.forEach((position) => {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
+          squSpace[currLocation] = "safe";
         });
       } else if (currLocation % 12 === 11) {
         rightEdge.forEach((position) => {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
+          squSpace[currLocation] = "safe";
         });
       } else {
         middle.forEach((position) => {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
+          squSpace[currLocation] = "safe";
         });
       }
 
@@ -284,14 +290,17 @@ function aroundMe(tile) {
       if (currLocation % 15 === 0) {
         leftEdge.forEach((position) => {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
+          squSpace[currLocation] = "safe";
         });
       } else if (currLocation % 15 === 14) {
         rightEdge.forEach((position) => {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
+          squSpace[currLocation] = "safe";
         });
       } else {
         middle.forEach((position) => {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
+          squSpace[currLocation] = "safe";
         });
       }
 
@@ -304,5 +313,9 @@ function aroundMe(tile) {
 }
 
 function checkWin() {
-  console.log("checking for win...");
+  if (!squSpace.includes(null)) victory();
+}
+
+function victory() {
+  message.innerHTML = "WINNER WINNER CHICKEN DINNER! NO VEGGIE PIZZA FOR YOU!!";
 }
