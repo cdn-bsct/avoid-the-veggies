@@ -1,6 +1,9 @@
 /*----------- State Variables ------------------*/
 let squSpace = [];
 let bombArr = [];
+let easyPos = [-11, -10, -9, -1, 1, 9, 10, 11];
+let mediumPos = [-13, -12, -11, -1, 1, 11, 12, 13];
+let hardPos = [-16, -15, -14, -1, 1, 14, 15, 16];
 let newBoard;
 let randomNum;
 
@@ -23,7 +26,6 @@ difficulty.forEach((button) => {
   });
 });
 gameBoard.addEventListener("click", function (evt) {
-  console.log(evt);
   checkTile(evt.target);
 });
 resetBtn.addEventListener("click", function () {
@@ -128,7 +130,6 @@ function reset() {
   gameBoard.replaceWith(newBoard);
   gameBoard = newBoard;
   gameBoard.addEventListener("click", function (evt) {
-    console.log(evt);
     checkTile(evt.target);
   });
 
@@ -205,13 +206,13 @@ function devMode() {
 }
 
 function checkTile(tile) {
-  console.log(tile);
   let selected = squSpace[parseInt(tile.id)];
-  console.log(selected);
   if (selected === "bomb") {
     endGame();
   } else {
-    console.log("Not a Bomb");
+    tile.style.setProperty("background-color", "#aa4400");
+    tile.setAttribute("disabled", "true");
+    tile.innerHTML = aroundMe(tile);
   }
   // if (press.className === "bomb") {
   //   endGame();
@@ -234,6 +235,27 @@ function endGame() {
       ? tile.style.setProperty("background-color", "rgb(101, 151, 25)")
       : tile.style.setProperty("background-color", "#a88852");
   });
+}
+
+function aroundMe(tile) {
+  currLocation = parseInt(tile.id);
+  bombCount = 0;
+
+  if (squSpace.length === 100) {
+    easyPos.forEach((position) => {
+      if (squSpace[currLocation + position] === "bomb") bombCount++;
+    });
+  } else if (squSpace === 144) {
+    mediumPos.forEach((position) => {
+      if (squSpace[currLocation + position] === "bomb") bombCount++;
+    });
+  } else {
+    hardPos.forEach((position) => {
+      if (squSpace[currLocation + position] === "bomb") bombCount++;
+    });
+  }
+
+  return bombCount;
 }
 
 function checkWin(btn) {
