@@ -1,8 +1,6 @@
 /*----------- State Variables ------------------*/
 let squSpace = [];
 let bombArr = [];
-let mediumPos = [-13, -12, -11, -1, 1, 11, 12, 13];
-let hardPos = [-16, -15, -14, -1, 1, 14, 15, 16];
 let boardSize;
 let newBoard;
 let randomNum;
@@ -252,32 +250,59 @@ function aroundMe(tile) {
           if (squSpace[currLocation + position] === "bomb") bombCount++;
         });
       }
+
+      checkWin();
       break;
+
     case 144:
-      console.log("medium");
+      leftEdge = [-12, -11, 1, 12, 13];
+      rightEdge = [-13, -12, -1, 11, 12];
+      middle = [-13, -12, -11, -1, 1, 11, 12, 13];
+
+      if (currLocation % 12 === 0) {
+        leftEdge.forEach((position) => {
+          if (squSpace[currLocation + position] === "bomb") bombCount++;
+        });
+      } else if (currLocation % 12 === 11) {
+        rightEdge.forEach((position) => {
+          if (squSpace[currLocation + position] === "bomb") bombCount++;
+        });
+      } else {
+        middle.forEach((position) => {
+          if (squSpace[currLocation + position] === "bomb") bombCount++;
+        });
+      }
+
+      checkWin();
       break;
+
     case 225:
-      console.log("large");
+      leftEdge = [-15, -14, 1, 15, 16];
+      rightEdge = [-16, -15, -1, 14, 15];
+      middle = [-16, -15, -14, -1, 1, 14, 15, 16];
+
+      if (currLocation % 15 === 0) {
+        leftEdge.forEach((position) => {
+          if (squSpace[currLocation + position] === "bomb") bombCount++;
+        });
+      } else if (currLocation % 15 === 14) {
+        rightEdge.forEach((position) => {
+          if (squSpace[currLocation + position] === "bomb") bombCount++;
+        });
+      } else {
+        middle.forEach((position) => {
+          if (squSpace[currLocation + position] === "bomb") bombCount++;
+        });
+      }
+
+      checkWin();
+
       break;
   }
 
   return bombCount;
 }
 
-function checkWin(btn) {
-  squSpace[btn.id] = "null";
-
-  let onlyBombs = squSpace.find(function (el) {
-    if (el.className === "safe") {
-      return true;
-    }
-  });
-
-  if (onlyBombs == undefined) {
-    y = document.getElementsByClassName("bomb");
-    for (let i = 0; i < y.length; i++) {
-      y[i].disabled = true;
-    }
-    message.innerHTML = "OH YEAH! Enjoy your meat lovers pizza! ";
-  }
+function checkWin() {
+  console.log("checking for win...");
 }
