@@ -1,9 +1,9 @@
 /*----------- State Variables ------------------*/
 let squSpace = [];
 let bombArr = [];
-let easyPos = [-11, -10, -9, -1, 1, 9, 10, 11];
 let mediumPos = [-13, -12, -11, -1, 1, 11, 12, 13];
 let hardPos = [-16, -15, -14, -1, 1, 14, 15, 16];
+let boardSize;
 let newBoard;
 let randomNum;
 
@@ -74,16 +74,16 @@ function createBoard(x, y) {
   gameBoard.style.setProperty(`grid-template-columns`, `repeat(${x}, 50px)`);
   gameBoard.style.setProperty(`grid-template-rows`, `repeat(${y}, 50px)`);
 
-  let size = x * y;
+  boardSize = x * y;
 
-  while (squSpace.length < size) {
+  while (squSpace.length < boardSize) {
     squSpace.push(null);
-    if (squSpace.length === size) {
+    if (squSpace.length === boardSize) {
       break;
     }
   }
 
-  fillBoard(size);
+  fillBoard(boardSize);
 }
 
 function fillBoard(size) {
@@ -214,14 +214,6 @@ function checkTile(tile) {
     tile.setAttribute("disabled", "true");
     tile.innerHTML = aroundMe(tile);
   }
-  // if (press.className === "bomb") {
-  //   endGame();
-  // } else if (press.className === "safe" && press.value >= 0) {
-  //   press.innerHTML = press.value;
-  //   press.disabled = true;
-  //   press.style.setProperty("background-color", "rgb(178,20,20)");
-  //   checkWin(press);
-  // }
 }
 
 function endGame() {
@@ -241,18 +233,32 @@ function aroundMe(tile) {
   currLocation = parseInt(tile.id);
   bombCount = 0;
 
-  if (squSpace.length === 100) {
-    easyPos.forEach((position) => {
-      if (squSpace[currLocation + position] === "bomb") bombCount++;
-    });
-  } else if (squSpace === 144) {
-    mediumPos.forEach((position) => {
-      if (squSpace[currLocation + position] === "bomb") bombCount++;
-    });
-  } else {
-    hardPos.forEach((position) => {
-      if (squSpace[currLocation + position] === "bomb") bombCount++;
-    });
+  switch (boardSize) {
+    case 100:
+      leftEdge = [-10, -9, 1, 10, 11];
+      rightEdge = [-11, -10, -1, 9, 10];
+      middle = [-11, -10, -9, -1, 1, 9, 10, 11];
+
+      if (currLocation % 10 === 0) {
+        leftEdge.forEach((position) => {
+          if (squSpace[currLocation + position] === "bomb") bombCount++;
+        });
+      } else if (currLocation % 10 === 9) {
+        rightEdge.forEach((position) => {
+          if (squSpace[currLocation + position] === "bomb") bombCount++;
+        });
+      } else {
+        middle.forEach((position) => {
+          if (squSpace[currLocation + position] === "bomb") bombCount++;
+        });
+      }
+      break;
+    case 144:
+      console.log("medium");
+      break;
+    case 225:
+      console.log("large");
+      break;
   }
 
   return bombCount;
