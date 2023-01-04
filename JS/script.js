@@ -21,6 +21,7 @@ let legendDiv = document.createElement("div");
 //----- Event Listeners -----//
 difficulty.forEach((button) => {
   button.addEventListener("click", (e) => {
+    e.target.setAttribute("disabled", "true");
     setDifficulty(e.target);
   });
 });
